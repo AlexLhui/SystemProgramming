@@ -9,8 +9,9 @@
 int main(int argc, char *argv[]) {
 	write(1,"Welcome to ENSEA Tiny Shell !\n",strlen("Welcome to ENSEA Tiny Shell !\n"));
 	write(1,"Pour quitter, tapez 'exit'.\n",strlen("Pour quitter, tapez 'exit'.\n"));
-	write(1,"enseash % ",strlen("enseash % "));
+	write(1,"enseash % ",strlen("enseash % ")); //For first execution
 	char *prompt;
+	//char *out;
 	int ex;
 	
 	do {
@@ -34,7 +35,10 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		prompt = (char *) realloc(prompt,MAX_SIZE);
-		write(1,"enseash % ",strlen("enseash % "));
+		//out = strncat(out,sprintf(ex,1),MAX_SIZE);
+		//out = "\nBye bye ...\n";
+		//write(1,out,strlen(out));
+		//out = (char *) realloc(out,MAX_SIZE);
 	} while(1);
 	
 	return 0;
