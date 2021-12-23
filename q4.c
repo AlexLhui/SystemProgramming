@@ -6,18 +6,25 @@
 #include <errno.h>
 #define MAX_SIZE 255 //Max size of command
 
-int main(int argc, char *argv[]) {
+int showmsg(char *msg) { 
+	int len = strlen(msg);
+	write(1, msg, len);
+	return 0;
+}
+
+int welcoming(char *welcsentence, char *exitsentence, char *shellname) { 
+	showmsg(welcsentence);
+	showmsg(exitsentence);
+	showmsg(shellname);	
+	return 0;
+}
+
+int readAndExecv3(int sizeOfCommand) {
 	char *prompt; //To store what the user will write
 	int ex;
 	int status;
 	char *out; //Will be used to write in the shell
-	
-	write(1,"Welcome to ENSEA Tiny Shell !\n",strlen("Welcome to ENSEA Tiny Shell !\n"));
-	write(1,"Pour quitter, tapez 'exit'.\n",strlen("Pour quitter, tapez 'exit'.\n"));
-	write(1,"enseash % ",strlen("enseash % ")); //For first execution
-	
-	do {
-		prompt = (char *) malloc(MAX_SIZE);
+	prompt = (char *) malloc(MAX_SIZE);
 		out = (char *) malloc(MAX_SIZE);
 		int n = read(0,prompt,MAX_SIZE);
 		prompt[n-1] = '\0'; //To erase the '\n' character made by pressing ENTER
@@ -57,7 +64,16 @@ int main(int argc, char *argv[]) {
 		write(1,out,strlen(out));
 		prompt = (char *) realloc(prompt,MAX_SIZE); //Reallocation of the memory for prompt
 		out = (char *) realloc(out,MAX_SIZE); //Reallocation of the memory for out
+		return 0;
+}
+
+int main(int argc, char *argv[]) {
 	
+	
+	welcoming("Welcome to ENSEA Tiny Shell !\n", "Pour quitter, tapez 'exit'.\n", "enseash % \n");
+	
+	do {
+		readAndExecv3(MAX_SIZE);
 	} while(1);
 	
 	return 0;
