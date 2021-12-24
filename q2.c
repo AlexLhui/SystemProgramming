@@ -19,12 +19,12 @@ int welcoming(char *welcsentence, char *exitsentence, char *shellname) {
 	return 0;
 }
 
-int readAndExecv1(int sizeOfCommand) {
+int readAndExecv1(int maxSizeOfCommand) {
 	char *prompt;
 	int ex;
 	int status;
-	prompt = (char *) malloc(sizeOfCommand); //To store what the user will write
-	int n = read(0,prompt,sizeOfCommand);
+	prompt = (char *) malloc(maxSizeOfCommand); //To store what the user will write
+	int n = read(0,prompt,maxSizeOfCommand);
 	prompt[n-1] = '\0'; //To erase the '\n' character made by pressing ENTER
 	pid_t ret = fork(); //We fork so that the command will be executed by the son
 	if (ret == 0) {
@@ -37,7 +37,7 @@ int readAndExecv1(int sizeOfCommand) {
 		else if (ret > 0) { //If it is the father, he will wait
 			wait(&status);
 		}
-		prompt = (char *) realloc(prompt,MAX_SIZE); //Reallocation of the memory for prompt
+		prompt = (char *) realloc(prompt,maxSizeOfCommand); //Reallocation of the memory for prompt
 		return 0;
 }
 
