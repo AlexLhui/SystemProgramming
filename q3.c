@@ -19,7 +19,7 @@ int welcoming(char *welcsentence, char *exitsentence, char *shellname) {
 	return 0;
 }
 
-int exitEnseash(char *prompt, int n) { //if the user write exit or use crtl+d, enseash will close
+int enseashCommands(char *prompt, int n) { //if the user write exit or use crtl+d, enseash will close, if he write a command it will be executed
 	int ex;
 	int status;
 	if (strcmp(prompt,"exit") == 0) { //strcmp equals 0 if both strings are equal
@@ -53,13 +53,13 @@ int main(int argc, char *argv[]) {
 	welcoming("Welcome to ENSEA Tiny Shell !\n", "Pour quitter, tapez 'exit'.\n", "enseash % \n");
 	
 	do {
-	    char *prompt;
+		char *prompt;
 	    prompt = (char *) malloc(MAX_SIZE); //To store what the user will write
 	    int n = read(0,prompt,MAX_SIZE);
 	    prompt[n-1] = '\0'; //To erase the '\n' character made by pressing ENTER
-	    exitEnseash(prompt,n);
-	    prompt = (char *) realloc(prompt,MAX_SIZE); //Reallocation of the memory for prompt
-       	    showmsg("enseash % ");
+		enseashCommands(prompt,n);
+		prompt = (char *) realloc(prompt,MAX_SIZE); //Reallocation of the memory for prompt
+		showmsg("enseash % ");
 	} while(1);
 	
 	return 0;
