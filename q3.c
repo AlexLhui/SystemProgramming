@@ -19,12 +19,12 @@ int welcoming(char *welcsentence, char *exitsentence, char *shellname) {
 	return 0;
 }
 
-int readAndExecv2(int sizeOfCommand) {
+int readAndExecv2(int maxSizeOfCommand) {
 	char *prompt;
 	int ex;
 	int status;
-	prompt = (char *) malloc(MAX_SIZE); //To store what the user will write
-		int n = read(0,prompt,MAX_SIZE);
+	prompt = (char *) malloc(maxSizeOfCommand); //To store what the user will write
+		int n = read(0,prompt,maxSizeOfCommand);
 		prompt[n-1] = '\0'; //To erase the '\n' character made by pressing ENTER
 		
 		//We differientiated both exits just for the property of the shell (new line in this case)
@@ -50,7 +50,7 @@ int readAndExecv2(int sizeOfCommand) {
 				wait(&status);
 			}
 		}
-		prompt = (char *) realloc(prompt,MAX_SIZE); //Reallocation of the memory for prompt
+		prompt = (char *) realloc(prompt,maxSizeOfCommand); //Reallocation of the memory for prompt
 		return 0;
 }
 
