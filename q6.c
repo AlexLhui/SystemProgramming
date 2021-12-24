@@ -90,7 +90,7 @@ int enseashCommands(char *prompt, int n) { //execute the prompt command given in
 		sprintf(out,"enseash [sign:%d|%.0fms] %% ",WTERMSIG(status),elapsed_time);
 	}
 		
-	write(1,out,strlen(out));
+	showmsg(out);
 	free(prompt);
 	free(out);
 	free(token);
