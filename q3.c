@@ -19,21 +19,15 @@ int welcoming(char *welcsentence, char *exitsentence, char *shellname) {
 	return 0;
 }
 
-int readAndExecv2(int maxSizeOfCommand) {
-	char *prompt;
+int exitEnseash(char *prompt, int n) { //if the user write exit or use crtl+d, enseash will close
 	int ex;
 	int status;
-	prompt = (char *) malloc(maxSizeOfCommand); //To store what the user will write
-	int n = read(0,prompt,maxSizeOfCommand);
-	prompt[n-1] = '\0'; //To erase the '\n' character made by pressing ENTER
-		
-	//We differientiated both exits just for the property of the shell (new line in this case)
 	if (strcmp(prompt,"exit") == 0) { //strcmp equals 0 if both strings are equal
 		showmsg("Bye bye ...\n");
 		exit(EXIT_SUCCESS); //We exit the program
 	}
 	else if (n == 0) { //This second test is for a <ctrl>+d
-		showmsg("\nBye bye ...\n");
+		showmsg("Bye bye ...\n");
 		exit(EXIT_SUCCESS); //We exit the program
 	}
 		
@@ -50,17 +44,22 @@ int readAndExecv2(int maxSizeOfCommand) {
 			wait(&status);
 		}
 	}
-	prompt = (char *) realloc(prompt,maxSizeOfCommand); //Reallocation of the memory for prompt
 	return 0;
 }
+
 
 int main(int argc, char *argv[]) {
 	
 	welcoming("Welcome to ENSEA Tiny Shell !\n", "Pour quitter, tapez 'exit'.\n", "enseash % \n");
 	
 	do {
-		readAndExecv2(MAX_SIZE);
-		showmsg("enseash % ");
+	    char *prompt;
+	    prompt = (char *) malloc(MAX_SIZE); //To store what the user will write
+	    int n = read(0,prompt,MAX_SIZE);
+	    prompt[n-1] = '\0'; //To erase the '\n' character made by pressing ENTER
+	    exitEnseash(prompt,n);
+	    prompt = (char *) realloc(prompt,MAX_SIZE); //Reallocation of the memory for prompt
+       	    showmsg("enseash % ");
 	} while(1);
 	
 	return 0;
